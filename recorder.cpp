@@ -12,8 +12,8 @@
 #include <chrono>
 #include <time.h>
 
-#include <sigmf/sigmf.h>
-#include <sigmf/sigmf_core_generated.h>
+#include <sigmf.h>
+#include <sigmf_core_generated.h>
 #include <sigmf_antenna_generated.h>
 
 int UHD_SAFE_MAIN(int argc, char *argv[]) {
