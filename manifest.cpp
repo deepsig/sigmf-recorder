@@ -54,7 +54,8 @@ void create_manifest(){
         bool valid_arg = false;
         while(!valid_arg) {
             json capture = manifest_capture();
-            j.push_back(capture);
+            json::iterator cap_beg = capture.begin();
+            j[cap_beg.key()] = cap_beg.value();
             std::cout << "Would you like to create add another capture? (y/n): " << std::endl;
             std::cin >> arg;
             std::cout << arg << std::endl;
