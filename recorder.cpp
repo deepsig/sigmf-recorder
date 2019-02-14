@@ -30,7 +30,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[]) {
             ("rate,r", po::value<double>()->default_value(40), "sample rate (MHz)")
             ("bw,w", po::value<double>()->default_value(40), "sample bandwidth (MHz)")
             ("gain,g", po::value<int>()->default_value(45), "receive gain (dB)")
-            ("samples,n", po::value<int>()->default_value(100000000), "Number of samples to capture")
+            ("samples,n", po::value<int>()->default_value(NUM_SAMPS), "Number of samples to capture")
             ("seconds,s", po::value<float>()->default_value(0), "Number of seconds to capture")
             ("bufsize,b", po::value<int>()->default_value(100000000), "Number of samples per buffer")
             ("device,d", po::value<std::string>()->default_value(""), "USRP Device Args")
@@ -42,6 +42,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[]) {
             ("shortname,N", po::value<std::string>()->default_value("RF"), "Short name in auto filename")
             ("showjson,j", po::bool_switch()->default_value(false), "Only show JSON Example and Exit")
             ("help,h", "produce help message")
+            ("manifest,m", po::value<std::string>()->default_value(""), "Manifest File")
             ;
     po::variables_map args;
     po::store( po::parse_command_line(argc, argv, desc), args );
@@ -84,6 +85,18 @@ int UHD_SAFE_MAIN(int argc, char *argv[]) {
     auto &a = meta.global.access<antenna::GlobalT>();
     a.gain = args["gain"].as<int>();
     a.type = args["antenna"].as<std::string>();
+
+    if(!args["manifest"].as<std::string>().empty()){
+        std::ifstream mf(args["manifest"].as<std::string>(), std::ios::in);
+        json j;
+        mf >> j;
+        for(auto& it : j.items()){
+            std::cout << it.key() << std::endl << " Datatype: " << it.value()["datatype"] << " Description: " << it.value()["description"] << std::endl;
+        }
+
+        return 0;
+
+    }
 
     // parse out the length of file to capture (use samples is specified, otherwise seconds, otherwise 0 = inf)
 
