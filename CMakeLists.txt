@@ -95,12 +95,11 @@ target_include_directories(
 
 target_link_libraries(
         manifest
+        libsigmf
+        libsigmf
         ${UHD_LIBRARIES}
         ${Boost_SYSTEM_LIBRARY_RELEASE}
         ${Boost_PROGRAM_OPTIONS_LIBRARY}
-        ${Boost_ALGORITHM_LIBRARY}
-        ${Boost_THREAD_LIBRARY}
-        ${Boost_DATE_TIME_LIBRARY}
 )
 
 
