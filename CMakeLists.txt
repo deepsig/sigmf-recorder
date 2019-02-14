@@ -79,6 +79,30 @@ target_link_libraries(
         ${Boost_DATE_TIME_LIBRARY}
 )
 
+## manifest generator
+add_executable(
+        manifest
+        manifest.cpp
+)
+
+target_include_directories(
+        manifest
+        PRIVATE
+        ${UHD_INCLUDE_DIRS}
+        ${Boost_INCLUDE_DIR}
+        ${SIGMF_INCLUDE_DIR}
+)
+
+target_link_libraries(
+        manifest
+        ${UHD_LIBRARIES}
+        ${Boost_SYSTEM_LIBRARY_RELEASE}
+        ${Boost_PROGRAM_OPTIONS_LIBRARY}
+        ${Boost_ALGORITHM_LIBRARY}
+        ${Boost_THREAD_LIBRARY}
+        ${Boost_DATE_TIME_LIBRARY}
+)
+
 
 
 #get_cmake_property(_variableNames VARIABLES)
