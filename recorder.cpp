@@ -16,6 +16,9 @@
 #include <sigmf_core_generated.h>
 #include <sigmf_antenna_generated.h>
 
+#define NUM_SAMPS 1e8
+typedef std::complex<int16_t> cint_16;
+
 int UHD_SAFE_MAIN(int argc, char *argv[]) {
 
     // Set up CLI options
@@ -27,9 +30,9 @@ int UHD_SAFE_MAIN(int argc, char *argv[]) {
             ("rate,r", po::value<double>()->default_value(40), "sample rate (MHz)")
             ("bw,w", po::value<double>()->default_value(40), "sample bandwidth (MHz)")
             ("gain,g", po::value<int>()->default_value(45), "receive gain (dB)")
-            ("samples,n", po::value<int>()->default_value(0), "Number of samples to capture")
+            ("samples,n", po::value<int>()->default_value(100000000), "Number of samples to capture")
             ("seconds,s", po::value<float>()->default_value(0), "Number of seconds to capture")
-            ("bufsize,b", po::value<int>()->default_value(2000), "Number of samples per buffer")
+            ("bufsize,b", po::value<int>()->default_value(100000000), "Number of samples per buffer")
             ("device,d", po::value<std::string>()->default_value(""), "USRP Device Args")
             ("subdev,v", po::value<std::string>()->default_value("A:A"), "USRP Subdevice")
             ("antenna,a", po::value<std::string>()->default_value("RX2"), "USRP Antenna Port")
@@ -83,11 +86,12 @@ int UHD_SAFE_MAIN(int argc, char *argv[]) {
     a.type = args["antenna"].as<std::string>();
 
     // parse out the length of file to capture (use samples is specified, otherwise seconds, otherwise 0 = inf)
-    size_t nsamp = args["samples"].as<int>();
+
+    size_t nsamp = 100000000;
     float sec = args["seconds"].as<float>();
-    if(nsamp == 0 && g.sample_rate > 0 && sec > 0){
-        nsamp = g.sample_rate * sec;
-    }
+//    if(nsamp == 0 && g.sample_rate > 0 && sec > 0){
+//        nsamp = g.sample_rate * sec;
+//    }
 
     // Check for filename and make one up from metadata and time if not specified
     std::string filebase = args["output"].as<std::string>();
@@ -149,36 +153,61 @@ int UHD_SAFE_MAIN(int argc, char *argv[]) {
 
     start_rec:
     // open output file
-    auto fd = fopen(fname_data.c_str(), "w");
+    //auto fd = fopen(fname_data.c_str(), "w");
+
+//    //setup streaming
+//    uhd::stream_cmd_t stream_cmd((nsamp == 0)?
+//                                 uhd::stream_cmd_t::STREAM_MODE_START_CONTINUOUS:
+//                                 uhd::stream_cmd_t::STREAM_MODE_NUM_SAMPS_AND_DONE
+//    );
+//    stream_cmd.num_samps = size_t(100000000);
+//    stream_cmd.stream_now = true;
+//    stream_cmd.time_spec = uhd::time_spec_t();
+//    rx_stream->issue_stream_cmd(stream_cmd);
+//
+//    // very simple receive loop ... to be improved
+//    uhd::rx_metadata_t md;
+//    //std::vector<samp_type> buff(args["bufsize"].as<int>());
+//    std::vector<samp_type> buff(100000000);
+//    auto location = buff.begin();
+//    size_t nrx(100000000);
+//    bool finished = false;
+//    unsigned long long actually_received = 0;
 
     //setup streaming
-    uhd::stream_cmd_t stream_cmd((nsamp == 0)?
-                                 uhd::stream_cmd_t::STREAM_MODE_START_CONTINUOUS:
-                                 uhd::stream_cmd_t::STREAM_MODE_NUM_SAMPS_AND_DONE
-    );
-    stream_cmd.num_samps = size_t(nsamp);
+    uhd::stream_cmd_t stream_cmd(uhd::stream_cmd_t::STREAM_MODE_START_CONTINUOUS);
+    stream_cmd.num_samps = NUM_SAMPS;
     stream_cmd.stream_now = true;
     stream_cmd.time_spec = uhd::time_spec_t();
     rx_stream->issue_stream_cmd(stream_cmd);
 
-    // very simple receive loop ... to be improved
     uhd::rx_metadata_t md;
-    std::vector<samp_type> buff(args["bufsize"].as<int>());
-    size_t nrx(0);
-    bool finished = false;
-    while(!finished){
-        size_t num_rx_samps = rx_stream->recv(&buff.front(), buff.size(), md, 3.0, enable_size_map);
-        if (md.error_code == uhd::rx_metadata_t::ERROR_CODE_OVERFLOW){
-            fclose(fd);
-            goto start_rec;
+
+    unsigned long long actually_received = 0;
+    char *buff = (char *)malloc(sizeof(cint_16) * NUM_SAMPS);
+
+    while(actually_received < NUM_SAMPS ){
+        size_t num_rx_samps = rx_stream->recv(&buff[actually_received * sizeof(cint_16)], NUM_SAMPS - actually_received, md, 3.0, enable_size_map);
+        if (md.error_code & uhd::rx_metadata_t::ERROR_CODE_OVERFLOW){
+            std::cout << "RETRYING\n";
+            actually_received = 0;
+            continue;
         }
-        size_t nsamp_use = (nsamp==0)?num_rx_samps:std::min(nsamp-nrx, num_rx_samps);
-        nrx += nsamp_use;
-        fwrite(&buff[0], sizeof(samp_type), nsamp_use, fd);
-        if(nsamp == nrx){ finished = true; }
-//        std::cout << "nsamp: " << nsamp << " nrx: " << nrx << " this rx: " << num_rx_samps << "\n";
+        else{
+            //location += num_rx_samps;
+            actually_received += num_rx_samps;
+            std::cout << "NumRX: " << num_rx_samps << " ActRec: " << actually_received << std::endl;
+        }
+//        size_t nsamp_use = (nsamp==0)?num_rx_samps:std::min(nsamp-nrx, num_rx_samps);
+//        nrx += nsamp_use;
+
+        //finished = true;
     }
-    fclose(fd);
+
+    std::ofstream fd(fname_data.c_str(), std::ios::out | std::ios::binary);
+    //fwrite(&buff[0], sizeof(samp_type), 100000000, fd);
+    fd.write(buff, sizeof(cint_16) * NUM_SAMPS);
+    fd.close();
 
     // write out meta
     std::ofstream metafile;
@@ -187,6 +216,6 @@ int UHD_SAFE_MAIN(int argc, char *argv[]) {
     metafile.close();
 
     // ...
-    std::cout << "finished. " << nrx << " samples written: " << fname_meta <<  "\n";
+    //std::cout << "finished. " << nrx << " samples written: " << fname_meta <<  "\n";
     return EXIT_SUCCESS;
 }
