@@ -29,6 +29,7 @@ target_link_libraries(
         ${UHD_LIBRARIES}
         ${Boost_SYSTEM_LIBRARY_RELEASE}
         ${Boost_PROGRAM_OPTIONS_LIBRARY}
+        ${Boost_FILESYSTEM_LIBRARY}
 )
 
 ## benchmark test
@@ -53,6 +54,7 @@ target_link_libraries(
         ${Boost_ALGORITHM_LIBRARY}
         ${Boost_THREAD_LIBRARY}
         ${Boost_DATE_TIME_LIBRARY}
+        ${Boost_FILESYSTEM_LIBRARY}
 )
 
 ## benchmark test
