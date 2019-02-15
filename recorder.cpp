@@ -7,10 +7,15 @@
 #include <boost/program_options.hpp>
 #include <boost/format.hpp>
 #include <boost/thread.hpp>
+#include <boost/filesystem.hpp>
 #include <iostream>
 #include <fstream>
+#include <sys/stat.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <chrono>
 #include <time.h>
+
 
 #include <sigmf.h>
 #include <sigmf_core_generated.h>
@@ -26,7 +31,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[]) {
     po::options_description desc("record_sigmf program options:");
     desc.add_options()
             ("output,o", po::value<std::string>()->default_value(""), "output filename")
-            ("freq,f", po::value<double>(), "center frequency (MHz) [required]")
+            ("freq,f", po::value<double>()->default_value(880), "center frequency (MHz)")
             ("rate,r", po::value<double>()->default_value(40), "sample rate (MHz)")
             ("bw,w", po::value<double>()->default_value(40), "sample bandwidth (MHz)")
             ("gain,g", po::value<int>()->default_value(45), "receive gain (dB)")
@@ -44,6 +49,12 @@ int UHD_SAFE_MAIN(int argc, char *argv[]) {
             ("help,h", "produce help message")
             ("manifest,m", po::value<std::string>()->default_value(""), "Manifest File")
             ;
+
+    if(!boost::filesystem::is_directory("./data")){
+        boost::filesystem::create_directories("./data");
+    }
+
+
     po::variables_map args;
     po::store( po::parse_command_line(argc, argv, desc), args );
     po::notify(args);
@@ -86,149 +97,254 @@ int UHD_SAFE_MAIN(int argc, char *argv[]) {
     a.gain = args["gain"].as<int>();
     a.type = args["antenna"].as<std::string>();
 
+    size_t num_samps = size_t(args["samples"].as<int>());
+
     if(!args["manifest"].as<std::string>().empty()){
         std::ifstream mf(args["manifest"].as<std::string>(), std::ios::in);
         json j;
         mf >> j;
         for(auto& it : j.items()){
-            std::cout << it.key() << std::endl << " Datatype: " << it.value()["datatype"] << " Description: " << it.value()["description"] << std::endl;
+            //std::cout << it.key() << std::endl << " Datatype: " << it.value()["datatype"] << " Description: " << it.value()["description"] << std::endl;
+
+
+
+            json val = it.value();
+            g.datatype = val["datatype"];
+            c.frequency = double(val["freq"]) * 1e6;
+            g.sample_rate = double(val["rate"]) * 1e6;
+            a.gain = int(val["gain"]);
+            num_samps = size_t(val["samples"]);
+
+
+            std::string file_base = boost::str(
+                    boost::format("SIGMF_%s_%s_F%0.3f_R%0.3f_T%0.03f") %
+                    (args["shortname"].as<std::string>()) %
+                    (g.datatype)  %
+                    (c.frequency / 1e6) %
+                    (g.sample_rate / 1e6) %
+                    ( std::chrono::time_point_cast<std::chrono::milliseconds>(startTime).time_since_epoch().count()/1e3 ));
+
+            std::string filename;
+            filename += "./data/";
+            std::string prefix = args["output"].as<std::string>();
+            if (!prefix.empty())
+            {
+                filename += prefix;
+                filename += "_";
+            }
+
+            filename += it.key() + "_" + file_base;
+
+
+
+            auto fname_meta = filename + ".sigmf-meta";
+            auto fname_data = filename + ".sigmf-data";
+
+
+
+            // Debug print out JSON
+            if(args["showjson"].as<bool>()){
+                std::cout << "filename: " << filename << "\n";
+                std::cout << json(meta).dump(2) << "\n";
+
+            }
+
+            // Set up the UHD
+            uhd::set_thread_priority_safe();
+            uhd::usrp::multi_usrp::sptr usrp = uhd::usrp::multi_usrp::make(args["device"].as<std::string>());
+            usrp->set_clock_source(args["reference"].as<std::string>());
+            usrp->set_rx_subdev_spec(args["subdev"].as<std::string>());
+            usrp->set_rx_rate(g.sample_rate);
+            uhd::tune_request_t tune_request(c.frequency);
+            usrp->set_rx_freq(tune_request);
+            usrp->set_rx_gain(a.gain);
+            usrp->set_rx_bandwidth(args["bw"].as<double>() * 1e6);
+            usrp->set_rx_antenna(a.type);
+
+            // provide some feedback ...
+            std::cout << boost::format("USRP Configued with Rate: %f MSPS, Freq: %f MHz, Gain: %d dB, Antenna: %s, NSamp: %d\n") %
+                         ( usrp->get_rx_rate() / 1e6 ) %
+                         ( usrp->get_rx_freq() / 1e6 ) %
+                         ( usrp->get_rx_gain() ) %
+                         ( usrp->get_rx_antenna() ) %
+                         ( num_samps );
+
+            // some default args .... hard wired
+            std::string cpu_format = "sc16";
+            std::string wire_format = "sc16";
+            typedef std::complex<int16_t> samp_type;
+            bool enable_size_map = false;
+            int channel = 0;
+
+            // set up streamer
+            uhd::stream_args_t stream_args(cpu_format,wire_format);
+            std::vector<size_t> channel_nums;
+            channel_nums.push_back(channel);
+            stream_args.channels = channel_nums;
+            uhd::rx_streamer::sptr rx_stream = usrp->get_rx_stream(stream_args);
+
+            //setup streaming
+            uhd::stream_cmd_t stream_cmd(uhd::stream_cmd_t::STREAM_MODE_START_CONTINUOUS);
+            stream_cmd.num_samps = num_samps;
+            stream_cmd.stream_now = true;
+            stream_cmd.time_spec = uhd::time_spec_t();
+            rx_stream->issue_stream_cmd(stream_cmd);
+
+            uhd::rx_metadata_t md;
+
+            size_t actually_received = 0;
+            char *buff = (char *)malloc(sizeof(samp_type) * num_samps);
+
+            while(actually_received < num_samps ){
+                size_t num_rx_samps = rx_stream->recv(&buff[actually_received * sizeof(samp_type)], num_samps - actually_received, md, 3.0, enable_size_map);
+                if (md.error_code & uhd::rx_metadata_t::ERROR_CODE_OVERFLOW){
+
+                    uhd::stream_cmd_t rx_stop_cmd(uhd::stream_cmd_t::STREAM_MODE_STOP_CONTINUOUS);
+                    rx_stop_cmd.stream_now = false;
+                    rx_stream->issue_stream_cmd( rx_stop_cmd );
+                    do {
+                        num_rx_samps = rx_stream->recv(&buff[0], num_samps, md, 3.0, enable_size_map);
+                        std::cout << "CLEARING NumSamps: " << num_rx_samps << std::endl;
+                    } while(!md.end_of_burst);
+
+                    std::cout << "RETRYING" << std::endl;
+                    actually_received = 0;
+                    rx_stream->issue_stream_cmd(stream_cmd);
+                    continue;
+                }
+                else{
+                    actually_received += num_rx_samps;
+                    std::cout << "NumRX: " << num_rx_samps << " ActRec: " << actually_received << std::endl;
+                }
+            }
+
+            std::ofstream fd(fname_data.c_str(), std::ios::out | std::ios::binary);
+            fd.write(buff, sizeof(samp_type) * num_samps);
+            fd.close();
+
+            // write out meta
+            std::ofstream metafile;
+            metafile.open(fname_meta);
+            metafile << json(meta).dump(2) << "\n";
+            metafile.close();
+
+            free(buff);
         }
-
-        return 0;
-
     }
+    else{
 
-    // parse out the length of file to capture (use samples is specified, otherwise seconds, otherwise 0 = inf)
-
-    size_t nsamp = 100000000;
-    float sec = args["seconds"].as<float>();
-//    if(nsamp == 0 && g.sample_rate > 0 && sec > 0){
-//        nsamp = g.sample_rate * sec;
-//    }
-
-    // Check for filename and make one up from metadata and time if not specified
-    std::string filebase = args["output"].as<std::string>();
-    if(filebase == ""){
-        filebase = boost::str(
+        std::string file_base = boost::str(
                 boost::format("SIGMF_%s_%s_F%0.3f_R%0.3f_T%0.03f") %
                 (args["shortname"].as<std::string>()) %
                 (g.datatype)  %
                 (c.frequency / 1e6) %
                 (g.sample_rate / 1e6) %
-                ( std::chrono::time_point_cast<std::chrono::milliseconds>(startTime).time_since_epoch().count()/1e3 )
-        );
-    }
-    auto fname_meta = filebase + ".sigmf-meta";
-    auto fname_data = filebase + ".sigmf-data";
+                ( std::chrono::time_point_cast<std::chrono::milliseconds>(startTime).time_since_epoch().count()/1e3 ));
 
-    // Debug print out JSON
-    if(args["showjson"].as<bool>()){
-        std::cout << "filebase: " << filebase << "\n";
-        std::cout << json(meta).dump(2) << "\n";
-        return 0;
-    }
-
-    // Set up the UHD
-    uhd::set_thread_priority_safe();
-    uhd::usrp::multi_usrp::sptr usrp = uhd::usrp::multi_usrp::make(args["device"].as<std::string>());
-    usrp->set_clock_source(args["reference"].as<std::string>());
-    usrp->set_rx_subdev_spec(args["subdev"].as<std::string>());
-    usrp->set_rx_rate(g.sample_rate);
-    uhd::tune_request_t tune_request(c.frequency);
-    usrp->set_rx_freq(tune_request);
-    usrp->set_rx_gain(a.gain);
-    usrp->set_rx_bandwidth(args["bw"].as<double>() * 1e6);
-    usrp->set_rx_antenna(a.type);
-
-    // provide some feedback ...
-    std::cout << boost::format("USRP Configued with Rate: %f MSPS, Freq: %f MHz, Gain: %d dB, Antenna: %s, NSamp: %d\n") %
-                 ( usrp->get_rx_rate() / 1e6 ) %
-                 ( usrp->get_rx_freq() / 1e6 ) %
-                 ( usrp->get_rx_gain() ) %
-                 ( usrp->get_rx_antenna() ) %
-                 ( nsamp );
-
-
-    // some default args .... hard wired
-    std::string cpu_format = "sc16";
-    std::string wire_format = "sc16";
-    typedef std::complex<int16_t> samp_type;
-//    typedef std::complex<float> samp_type;
-    bool enable_size_map = false;
-    int channel = 0;
-
-    // set up streamer
-    uhd::stream_args_t stream_args(cpu_format,wire_format);
-    std::vector<size_t> channel_nums;
-    channel_nums.push_back(channel);
-    stream_args.channels = channel_nums;
-    uhd::rx_streamer::sptr rx_stream = usrp->get_rx_stream(stream_args);
-
-    start_rec:
-    // open output file
-    //auto fd = fopen(fname_data.c_str(), "w");
-
-//    //setup streaming
-//    uhd::stream_cmd_t stream_cmd((nsamp == 0)?
-//                                 uhd::stream_cmd_t::STREAM_MODE_START_CONTINUOUS:
-//                                 uhd::stream_cmd_t::STREAM_MODE_NUM_SAMPS_AND_DONE
-//    );
-//    stream_cmd.num_samps = size_t(100000000);
-//    stream_cmd.stream_now = true;
-//    stream_cmd.time_spec = uhd::time_spec_t();
-//    rx_stream->issue_stream_cmd(stream_cmd);
-//
-//    // very simple receive loop ... to be improved
-//    uhd::rx_metadata_t md;
-//    //std::vector<samp_type> buff(args["bufsize"].as<int>());
-//    std::vector<samp_type> buff(100000000);
-//    auto location = buff.begin();
-//    size_t nrx(100000000);
-//    bool finished = false;
-//    unsigned long long actually_received = 0;
-
-    //setup streaming
-    uhd::stream_cmd_t stream_cmd(uhd::stream_cmd_t::STREAM_MODE_START_CONTINUOUS);
-    stream_cmd.num_samps = NUM_SAMPS;
-    stream_cmd.stream_now = true;
-    stream_cmd.time_spec = uhd::time_spec_t();
-    rx_stream->issue_stream_cmd(stream_cmd);
-
-    uhd::rx_metadata_t md;
-
-    unsigned long long actually_received = 0;
-    char *buff = (char *)malloc(sizeof(cint_16) * NUM_SAMPS);
-
-    while(actually_received < NUM_SAMPS ){
-        size_t num_rx_samps = rx_stream->recv(&buff[actually_received * sizeof(cint_16)], NUM_SAMPS - actually_received, md, 3.0, enable_size_map);
-        if (md.error_code & uhd::rx_metadata_t::ERROR_CODE_OVERFLOW){
-            std::cout << "RETRYING\n";
-            actually_received = 0;
-            continue;
+        std::string filename;
+        std::string prefix = args["output"].as<std::string>();
+        if (!prefix.empty())
+        {
+            filename += prefix;
+            filename += "_";
         }
-        else{
-            //location += num_rx_samps;
-            actually_received += num_rx_samps;
-            std::cout << "NumRX: " << num_rx_samps << " ActRec: " << actually_received << std::endl;
-        }
-//        size_t nsamp_use = (nsamp==0)?num_rx_samps:std::min(nsamp-nrx, num_rx_samps);
-//        nrx += nsamp_use;
 
-        //finished = true;
+        filename += file_base;
+
+        auto fname_meta = filename + ".sigmf-meta";
+        auto fname_data = filename + ".sigmf-data";
+
+        // Debug print out JSON
+        if(args["showjson"].as<bool>()){
+            std::cout << "filename: " << filename << "\n";
+            std::cout << json(meta).dump(2) << "\n";
+            return 0;
+        }
+
+        // Set up the UHD
+        uhd::set_thread_priority_safe();
+        uhd::usrp::multi_usrp::sptr usrp = uhd::usrp::multi_usrp::make(args["device"].as<std::string>());
+        usrp->set_clock_source(args["reference"].as<std::string>());
+        usrp->set_rx_subdev_spec(args["subdev"].as<std::string>());
+        usrp->set_rx_rate(g.sample_rate);
+        uhd::tune_request_t tune_request(c.frequency);
+        usrp->set_rx_freq(tune_request);
+        usrp->set_rx_gain(a.gain);
+        usrp->set_rx_bandwidth(args["bw"].as<double>() * 1e6);
+        usrp->set_rx_antenna(a.type);
+
+        // provide some feedback ...
+        std::cout << boost::format("USRP Configued with Rate: %f MSPS, Freq: %f MHz, Gain: %d dB, Antenna: %s, NSamp: %d\n") %
+                     ( usrp->get_rx_rate() / 1e6 ) %
+                     ( usrp->get_rx_freq() / 1e6 ) %
+                     ( usrp->get_rx_gain() ) %
+                     ( usrp->get_rx_antenna() ) %
+                     ( num_samps );
+
+
+        // some default args .... hard wired
+        std::string cpu_format = "sc16";
+        std::string wire_format = "sc16";
+        typedef std::complex<int16_t> samp_type;
+        bool enable_size_map = false;
+        int channel = 0;
+
+        // set up streamer
+        uhd::stream_args_t stream_args(cpu_format,wire_format);
+        std::vector<size_t> channel_nums;
+        channel_nums.push_back(channel);
+        stream_args.channels = channel_nums;
+        uhd::rx_streamer::sptr rx_stream = usrp->get_rx_stream(stream_args);
+
+
+        //setup streaming
+        uhd::stream_cmd_t stream_cmd(uhd::stream_cmd_t::STREAM_MODE_START_CONTINUOUS);
+        stream_cmd.num_samps = num_samps;
+        stream_cmd.stream_now = true;
+        stream_cmd.time_spec = uhd::time_spec_t();
+        rx_stream->issue_stream_cmd(stream_cmd);
+
+        uhd::rx_metadata_t md;
+
+        size_t actually_received = 0;
+        char *buff = (char *)malloc(sizeof(samp_type) * num_samps);
+
+        while(actually_received < num_samps ){
+            size_t num_rx_samps = rx_stream->recv(&buff[actually_received * sizeof(samp_type)], num_samps - actually_received, md, 3.0, enable_size_map);
+            if (md.error_code & uhd::rx_metadata_t::ERROR_CODE_OVERFLOW){
+                uhd::stream_cmd_t rx_stop_cmd(uhd::stream_cmd_t::STREAM_MODE_STOP_CONTINUOUS);
+                rx_stop_cmd.stream_now = true;
+                rx_stream->issue_stream_cmd( rx_stop_cmd );
+
+                do {
+                    rx_stream->recv(buff, num_samps, md, 3.0, enable_size_map);
+                    std::cout << "Clearing " << std::endl;
+                } while(!md.end_of_burst) ;
+
+                std::cout << "RETRYING\n";
+                actually_received = 0;
+                rx_stream->issue_stream_cmd(stream_cmd);
+                continue;
+            }
+            else{
+                actually_received += num_rx_samps;
+                std::cout << "NumRX: " << num_rx_samps << " ActRec: " << actually_received << std::endl;
+            }
+        }
+
+        std::ofstream fd(fname_data.c_str(), std::ios::out | std::ios::binary);
+        fd.write(buff, sizeof(samp_type) * num_samps);
+        fd.close();
+
+        // write out meta
+        std::ofstream metafile;
+        metafile.open(fname_meta);
+        metafile << json(meta).dump(2) << "\n";
+        metafile.close();
+
+        free(buff);
     }
 
-    std::ofstream fd(fname_data.c_str(), std::ios::out | std::ios::binary);
-    //fwrite(&buff[0], sizeof(samp_type), 100000000, fd);
-    fd.write(buff, sizeof(cint_16) * NUM_SAMPS);
-    fd.close();
 
-    // write out meta
-    std::ofstream metafile;
-    metafile.open(fname_meta);
-    metafile << json(meta).dump(2) << "\n";
-    metafile.close();
-
-    // ...
-    //std::cout << "finished. " << nrx << " samples written: " << fname_meta <<  "\n";
     return EXIT_SUCCESS;
 }

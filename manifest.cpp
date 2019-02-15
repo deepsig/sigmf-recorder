@@ -58,7 +58,6 @@ void create_manifest(){
             j[cap_beg.key()] = cap_beg.value();
             std::cout << "Would you like to create add another capture? (y/n): " << std::endl;
             std::cin >> arg;
-            std::cout << arg << std::endl;
             arg = tolower(arg);
             switch (arg) {
                 case 'y':
@@ -150,6 +149,8 @@ json manifest_capture(){
     std::cin >> str_arg;
     j[capture_name]["description"] = str_arg.c_str();
     str_arg.clear();
+
+    std::cout << std::endl;
 
     return j;
 
