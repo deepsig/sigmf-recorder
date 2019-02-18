@@ -197,17 +197,22 @@ int UHD_SAFE_MAIN(int argc, char *argv[]) {
 
             while(actually_received < num_samps ){
                 size_t num_rx_samps = rx_stream->recv(&buff[actually_received * sizeof(samp_type)], num_samps - actually_received, md, 3.0, enable_size_map);
-                if (md.error_code & uhd::rx_metadata_t::ERROR_CODE_OVERFLOW){
+                if (md.error_code != uhd::rx_metadata_t::ERROR_CODE_NONE){
 
                     uhd::stream_cmd_t rx_stop_cmd(uhd::stream_cmd_t::STREAM_MODE_STOP_CONTINUOUS);
                     rx_stop_cmd.stream_now = false;
                     rx_stream->issue_stream_cmd( rx_stop_cmd );
+                    size_t zero_count = 0;
                     do {
                         num_rx_samps = rx_stream->recv(&buff[0], num_samps, md, 3.0, enable_size_map);
-                        std::cout << "CLEARING NumSamps: " << num_rx_samps << std::endl;
-                    } while(!md.end_of_burst);
+                        std::cout << "FLUSHING SAMPLE BUFFER NumSamps: " << num_rx_samps << std::endl;
+                        if (num_rx_samps == 0){
+                            zero_count++;
+                        }
 
-                    std::cout << "RETRYING" << std::endl;
+                    } while(!md.end_of_burst && zero_count < 4);
+
+                    std::cout << "RETRYING CAPTURE" << std::endl;
                     actually_received = 0;
                     rx_stream->issue_stream_cmd(stream_cmd);
                     continue;
