@@ -8,22 +8,27 @@
 #include <fstream>
 #include <ctype.h>
 
-//using json = nlohmann::json;
 void create_manifest();
 json manifest_capture();
 
 int main(int argc, char *argv[]) {
     std::cout << "SigMF Manifest Generator" << std::endl;
-    //bool more_manifests = true;
     for(;;){
         create_manifest();
-        char arg;
         bool valid_arg = false;
         while(!valid_arg) {
             std::cout << "Would you like to create another manifest file? (y/n): " << std::endl;
-            std::cin >> arg;
-            std::cout << arg << std::endl;
-            arg = tolower(arg);
+            std::string str_arg;
+            std::getline(std::cin, str_arg);
+            char arg;
+            try{
+                arg = (char)tolower(str_arg.at(0));
+            }
+            catch (...){
+                std::cout << "Invalid Option!" << std::endl;
+                continue;
+            }
+
             switch (arg) {
                 case 'y':
                     valid_arg = true;
@@ -32,33 +37,44 @@ int main(int argc, char *argv[]) {
                     return 0;
                 default:
                     std::cout << "Invalid Option!" << std::endl;
+                    break;
             }
         }
     }
-
-
-
 }
 
 void create_manifest(){
-    //std::ofstream mf(fname, std::ios::out);
     std::string str_arg;
-    char char_arg;
-    int int_arg;
-    std::cout << "Name of File (without extension):" << std::endl;
-    std::cin >> str_arg;
+    while (str_arg.empty()){
+        std::cout << "Name of File (without extension):" << std::endl;
+        std::getline(std::cin, str_arg);
+        if(str_arg.empty()){
+            std::cout << "File Name Cannot Be Empty!" << std::endl;
+        }
+    }
+
     std::ofstream mf(str_arg + ".manifest", std::ios::out);
     json j = {};
     for(;;){
-        char arg;
         bool valid_arg = false;
+
+        json capture = manifest_capture();
+        json::iterator cap_beg = capture.begin();
+        j[cap_beg.key()] = cap_beg.value();
         while(!valid_arg) {
-            json capture = manifest_capture();
-            json::iterator cap_beg = capture.begin();
-            j[cap_beg.key()] = cap_beg.value();
             std::cout << "Would you like to create add another capture? (y/n): " << std::endl;
-            std::cin >> arg;
-            arg = tolower(arg);
+
+            std::getline(std::cin, str_arg);
+            char arg;
+            try{
+                arg = (char)tolower(str_arg.at(0));
+            }
+            catch (...){
+                std::cout << "Invalid Option!" << std::endl;
+                continue;
+            }
+
+
             switch (arg) {
                 case 'y':
                     valid_arg = true;
@@ -69,6 +85,7 @@ void create_manifest(){
                     return;
                 default:
                     std::cout << "Invalid Option!" << std::endl;
+                    break;
             }
         }
     }
@@ -80,30 +97,36 @@ json manifest_capture(){
     json j;
     std::string str_arg;
 
-    std::cout << "Name of Capture:" << std::endl;
-    std::cin >> str_arg;
+    while(str_arg.empty()){
+        std::cout << "Name of Capture:" << std::endl;
+        std::getline(std::cin, str_arg);
+        if(str_arg.empty()){
+            std::cout << "Capture Name Cannot Be Empty!" << std::endl;
+        }
+    }
+
     std::string capture_name(str_arg);
     j[capture_name] = {};
     str_arg.clear();
 
     std::cout << "Center Frequency in MHz (Default: 880 MHz): " << std::endl;
-    std::cin >> str_arg;
+    std::getline(std::cin, str_arg);
     j[capture_name]["freq"] = str_arg.empty() ? 880 : std::stoi(str_arg);
     str_arg.clear();
 
     std::cout << "Sampling Rate in MSPS (Default: 40 MSPS): " << std::endl;
-    std::cin >> str_arg;
+    std::getline(std::cin, str_arg);
     j[capture_name]["rate"] = str_arg.empty() ? 40 : std::stoi(str_arg);
     str_arg.clear();
 
     std::cout << "Gain in dB (Default: 45 dB): " << std::endl;
-    std::cin >> str_arg;
+    std::getline(std::cin, str_arg);
     j[capture_name]["gain"] = str_arg.empty() ? 45 : std::stoi(str_arg);
     str_arg.clear();
 
     std::cout << "Number of Samples (Default: 100000000 i.e. 1e8): " << std::endl;
-    std::cin >> str_arg;
-    j[capture_name]["samples"] = str_arg.empty() ? 880 : std::stoi(str_arg);
+    std::getline(std::cin, str_arg);
+    j[capture_name]["samples"] = str_arg.empty() ? 1e8 : std::stod(str_arg);
     str_arg.clear();
 
     std::cout << "Datatype enter a number (Default: 1. ci16_le): " << std::endl
@@ -114,7 +137,7 @@ json manifest_capture(){
             << "\t5. cf32_le" << std::endl
             << "\t6. fc32_le" << std::endl;
 
-    std::cin >> str_arg;
+    std::getline(std::cin, str_arg);
     if (str_arg.empty()){
         j[capture_name]["datatype"] = "ci16_le";
     } else {
@@ -146,13 +169,11 @@ json manifest_capture(){
     str_arg.clear();
 
     std::cout << "Extra Description: " << std::endl;
-    std::cin >> str_arg;
+    std::getline(std::cin, str_arg);
     j[capture_name]["description"] = str_arg.c_str();
     str_arg.clear();
 
     std::cout << std::endl;
 
     return j;
-
-
 }
