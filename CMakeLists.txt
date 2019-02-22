@@ -98,6 +98,27 @@ target_include_directories(
 target_link_libraries(
         manifest
         libsigmf
+        ${UHD_LIBRARIES}
+        ${Boost_SYSTEM_LIBRARY_RELEASE}
+        ${Boost_PROGRAM_OPTIONS_LIBRARY}
+)
+
+## manifest generator
+add_executable(
+        json_concat
+        json_concat.cpp
+)
+
+target_include_directories(
+        json_concat
+        PRIVATE
+        ${UHD_INCLUDE_DIRS}
+        ${Boost_INCLUDE_DIR}
+        ${SIGMF_INCLUDE_DIR}
+)
+
+target_link_libraries(
+        json_concat
         libsigmf
         ${UHD_LIBRARIES}
         ${Boost_SYSTEM_LIBRARY_RELEASE}
