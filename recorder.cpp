@@ -7,186 +7,213 @@
 #include <boost/program_options.hpp>
 #include <boost/format.hpp>
 #include <boost/thread.hpp>
+#include <boost/filesystem.hpp>
 #include <iostream>
 #include <fstream>
+#include <sys/stat.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <chrono>
 #include <time.h>
 
-#include <sigmf/sigmf.h>
-#include <sigmf/sigmf_core_generated.h>
+
+#include <sigmf.h>
+#include <sigmf_core_generated.h>
 #include <sigmf_antenna_generated.h>
 
-int UHD_SAFE_MAIN(int argc, char *argv[]) {
 
+template<typename samp_type>
+void record_usrp_to_file(uint64_t num_samps, const std::string &fname_data, uhd::usrp::multi_usrp::sptr &usrp,
+                         const std::string &cpu_format);
+
+int UHD_SAFE_MAIN(int argc, char *argv[]) {
     // Set up CLI options
     namespace po = boost::program_options;
     po::options_description desc("record_sigmf program options:");
     desc.add_options()
-            ("output,o", po::value<std::string>()->default_value(""), "output filename")
-            ("freq,f", po::value<double>(), "center frequency (MHz) [required]")
+            ("output,o", po::value<std::string>()->default_value(""),
+             "output filename if no manifest, otherwise added to manifest filename")
+            ("freq,f", po::value<double>()->default_value(880), "center frequency [MHz]")
             ("rate,r", po::value<double>()->default_value(40), "sample rate (MHz)")
             ("bw,w", po::value<double>()->default_value(40), "sample bandwidth (MHz)")
-            ("gain,g", po::value<int>()->default_value(45), "receive gain (dB)")
-            ("samples,n", po::value<int>()->default_value(0), "Number of samples to capture")
+            ("gain,g", po::value<double>()->default_value(45), "receive gain (dB)")
+            ("samples,n", po::value<uint64_t>()->default_value(100000000), "Number of samples to capture")
             ("seconds,s", po::value<float>()->default_value(0), "Number of seconds to capture")
-            ("bufsize,b", po::value<int>()->default_value(2000), "Number of samples per buffer")
+            ("bufsize,b", po::value<int>()->default_value(100000000), "Number of samples per buffer")
             ("device,d", po::value<std::string>()->default_value(""), "USRP Device Args")
             ("subdev,v", po::value<std::string>()->default_value("A:A"), "USRP Subdevice")
             ("antenna,a", po::value<std::string>()->default_value("RX2"), "USRP Antenna Port")
             ("reference,c", po::value<std::string>()->default_value("internal"), "Clock Reference")
-            ("datatype,t", po::value<std::string>()->default_value("16sc"), "Data type")
+            ("datatype,t", po::value<std::string>()->default_value("ci16_le"), "Data type")
             ("description,e", po::value<std::string>()->default_value(""), "Description")
             ("shortname,N", po::value<std::string>()->default_value("RF"), "Short name in auto filename")
-            ("showjson,j", po::bool_switch()->default_value(false), "Only show JSON Example and Exit")
             ("help,h", "produce help message")
-            ;
+            ("manifest,m", po::value<std::string>()->default_value(""), "Manifest File");
+
+    if (!boost::filesystem::is_directory("./data")) {
+        boost::filesystem::create_directories("./data");
+    }
+
     po::variables_map args;
-    po::store( po::parse_command_line(argc, argv, desc), args );
+    po::store(po::parse_command_line(argc, argv, desc), args);
     po::notify(args);
 
-    // set up datetime
-    auto startTime = std::chrono::system_clock::now();
-    auto partial_time_microsec = std::chrono::time_point_cast<std::chrono::microseconds>(startTime) -
-                                 std::chrono::time_point_cast<std::chrono::seconds>(startTime);
-    auto tt = std::chrono::system_clock::to_time_t(startTime);
-    std::stringstream datetime_stringstream;
-    datetime_stringstream << std::put_time(std::gmtime(&tt), "%Y-%m-%d %H:%M:%S.") << boost::format("%06d")%partial_time_microsec.count();
-
     // if help called, or required variable note passed
-    if(args.count("help") || args.count("freq") < 1){
+    if (args.count("help") || args.count("freq") < 1) {
         std::cout << desc << "\n";
         return 0;
     }
 
-    // set up the primary SigMF Metadata object from CLI options
-    sigmf::SigMF<
-            sigmf::VariadicDataClass<core::GlobalT, antenna::GlobalT>,
-            sigmf::VariadicDataClass<core::CaptureT>,
-            sigmf::VariadicDataClass<core::AnnotationT>
-        > meta;
+    uint64_t num_samps = size_t(args["samples"].as<uint64_t>());
 
-    // Set up global fields
-    auto &g = meta.global.access<core::GlobalT>();
-    g.sample_rate = args["rate"].as<double>() * 1e6;
-    g.datatype = args["datatype"].as<std::string>();
-    g.description = args["description"].as<std::string>();
+    if (!args["manifest"].as<std::string>().empty()) {
+        std::ifstream manifest_file(args["manifest"].as<std::string>(), std::ios::in);
+        json recording_manifest;
+        manifest_file >> recording_manifest;
+        uhd::set_thread_priority_safe();
+        uhd::usrp::multi_usrp::sptr usrp = uhd::usrp::multi_usrp::make(args["device"].as<std::string>());
+        usrp->set_clock_source(args["reference"].as<std::string>());
+        usrp->set_rx_subdev_spec(args["subdev"].as<std::string>());
 
-    // Set up capture fields
-    auto &c = meta.captures.create_new().access<core::CaptureT>();
-    c.frequency = args["freq"].as<double>()*1e6;
-    c.sample_start = 0;
-    c.datetime = datetime_stringstream.str();
+        for (auto &recording_parameters : recording_manifest) {
+            std::cout << recording_parameters.dump(2) << std::endl;
 
-    // Set up Antenna fields
-    auto &a = meta.global.access<antenna::GlobalT>();
-    a.gain = args["gain"].as<int>();
-    a.type = args["antenna"].as<std::string>();
+            num_samps = recording_parameters["samples"].get<uint64_t>();
 
-    // parse out the length of file to capture (use samples is specified, otherwise seconds, otherwise 0 = inf)
-    size_t nsamp = args["samples"].as<int>();
-    float sec = args["seconds"].as<float>();
-    if(nsamp == 0 && g.sample_rate > 0 && sec > 0){
-        nsamp = g.sample_rate * sec;
+            char fileformatted_date[32];
+            long now = std::chrono::duration_cast<std::chrono::seconds>(
+                    std::chrono::system_clock::now().time_since_epoch()).count();
+            strftime(fileformatted_date, 32, "%Y-%m-%d-%H-%M-%S", localtime(&now));
+            auto date_for_filename = std::string(fileformatted_date);
+
+            std::stringstream filename;
+            filename << "./data/";
+            std::string prefix = args["output"].as<std::string>();
+            if (!prefix.empty()) {
+                filename << prefix;
+                filename << "_";
+            }
+
+            filename << fileformatted_date;
+
+            std::string cpu_format = args["datatype"].as<std::string>();
+            // Set up the USRP
+            usrp->set_rx_rate(recording_parameters["rate"].get<double>() * 1e6);
+            usrp->set_rx_bandwidth(recording_parameters["rate"].get<double>() * 1e6);
+            uhd::tune_request_t tune_request(recording_parameters["freq"].get<double>() * 1e6);
+            usrp->set_rx_freq(tune_request);
+            usrp->set_rx_gain(recording_parameters["gain"].get<double>());
+            usrp->set_rx_antenna("RX2");
+
+            // set up the primary SigMF Metadata object from CLI options
+            sigmf::SigMF<
+                    sigmf::VariadicDataClass<core::GlobalT, antenna::GlobalT>,
+                    sigmf::VariadicDataClass<core::CaptureT>,
+                    sigmf::VariadicDataClass<core::AnnotationT>
+            > recording_metadata;
+            // Set up Antenna fields
+            auto &antenna_metadata = recording_metadata.global.access<antenna::GlobalT>();
+            antenna_metadata.type = args["antenna"].as<std::string>();
+
+            // Set up global fields
+            auto &global_metadata = recording_metadata.global.access<core::GlobalT>();
+            global_metadata.datatype = args["datatype"].as<std::string>();
+            global_metadata.description = args["description"].as<std::string>();
+
+            // Set up capture fields
+            auto &captures_metadata = recording_metadata.captures.create_new().access<core::CaptureT>();
+            captures_metadata.sample_start = 0;
+            captures_metadata.datetime = date_for_filename;
+
+            global_metadata.datatype = recording_parameters["datatype"];
+            captures_metadata.frequency = usrp->get_rx_freq();
+            global_metadata.sample_rate = usrp->get_rx_rate();
+
+            filename << "_" << args["output"].as<std::string>() << "_" << std::setw(2)
+                     << captures_metadata.frequency / 1e6;
+            auto filename_string = filename.str();
+            auto fname_meta = filename_string + ".sigmf-meta";
+            auto fname_data = filename_string + ".sigmf-data";
+            std::cout << "Filename for meta is " << fname_meta << std::endl;
+            std::cout << "Filename for data is " << fname_meta << std::endl;
+
+            std::cout << "cpu format is " << cpu_format << std::endl;
+            if (cpu_format == "ci8_le") {
+                record_usrp_to_file<std::complex<int8_t> >(num_samps, fname_data, usrp, "sc8");
+            } else if (cpu_format == "ci16_le") {
+                record_usrp_to_file<std::complex<int16_t> >(num_samps, fname_data, usrp, "sc16");
+            } else if (cpu_format == "cf32_le") {
+                record_usrp_to_file<std::complex<float> >(num_samps, fname_data, usrp, "fc32");
+            }
+
+            // write out meta
+            std::ofstream metafile;
+            metafile.open(fname_meta);
+            metafile << json(recording_metadata).dump(2) << "\n";
+            metafile.close();
+        }
+    } else {
+        // Fill in call to record when there is no manifest
+
     }
 
-    // Check for filename and make one up from metadata and time if not specified
-    std::string filebase = args["output"].as<std::string>();
-    if(filebase == ""){
-        filebase = boost::str(
-                boost::format("SIGMF_%s_%s_F%0.3f_R%0.3f_T%0.03f") %
-                (args["shortname"].as<std::string>()) %
-                (g.datatype)  %
-                (c.frequency / 1e6) %
-                (g.sample_rate / 1e6) %
-                ( std::chrono::time_point_cast<std::chrono::milliseconds>(startTime).time_since_epoch().count()/1e3 )
-        );
-    }
-    auto fname_meta = filebase + ".sigmf-meta";
-    auto fname_data = filebase + ".sigmf-data";
+    return EXIT_SUCCESS;
+}
 
-    // Debug print out JSON
-    if(args["showjson"].as<bool>()){
-        std::cout << "filebase: " << filebase << "\n";
-        std::cout << json(meta).dump(2) << "\n";
-        return 0;
-    }
-
-    // Set up the UHD
-    uhd::set_thread_priority_safe();
-    uhd::usrp::multi_usrp::sptr usrp = uhd::usrp::multi_usrp::make(args["device"].as<std::string>());
-    usrp->set_clock_source(args["reference"].as<std::string>());
-    usrp->set_rx_subdev_spec(args["subdev"].as<std::string>());
-    usrp->set_rx_rate(g.sample_rate);
-    uhd::tune_request_t tune_request(c.frequency);
-    usrp->set_rx_freq(tune_request);
-    usrp->set_rx_gain(a.gain);
-    usrp->set_rx_bandwidth(args["bw"].as<double>() * 1e6);
-    usrp->set_rx_antenna(a.type);
-
-    // provide some feedback ...
-    std::cout << boost::format("USRP Configued with Rate: %f MSPS, Freq: %f MHz, Gain: %d dB, Antenna: %s, NSamp: %d\n") %
-                 ( usrp->get_rx_rate() / 1e6 ) %
-                 ( usrp->get_rx_freq() / 1e6 ) %
-                 ( usrp->get_rx_gain() ) %
-                 ( usrp->get_rx_antenna() ) %
-                 ( nsamp );
-
-
-    // some default args .... hard wired
-    std::string cpu_format = "sc16";
+template<typename samp_type>
+void record_usrp_to_file(uint64_t num_samps, const std::string &fname_data, uhd::usrp::multi_usrp::sptr &usrp,
+                         const std::string &cpu_format) {
     std::string wire_format = "sc16";
-    typedef std::complex<int16_t> samp_type;
-//    typedef std::complex<float> samp_type;
-    bool enable_size_map = false;
-    int channel = 0;
 
     // set up streamer
-    uhd::stream_args_t stream_args(cpu_format,wire_format);
+    int channel = 0;
+    uhd::stream_args_t stream_args(cpu_format, wire_format);
     std::vector<size_t> channel_nums;
     channel_nums.push_back(channel);
     stream_args.channels = channel_nums;
     uhd::rx_streamer::sptr rx_stream = usrp->get_rx_stream(stream_args);
 
-    start_rec:
-    // open output file
-    auto fd = fopen(fname_data.c_str(), "w");
-
     //setup streaming
-    uhd::stream_cmd_t stream_cmd((nsamp == 0)?
-                                 uhd::stream_cmd_t::STREAM_MODE_START_CONTINUOUS:
-                                 uhd::stream_cmd_t::STREAM_MODE_NUM_SAMPS_AND_DONE
-    );
-    stream_cmd.num_samps = size_t(nsamp);
+    uhd::stream_cmd_t stream_cmd(uhd::stream_cmd_t::STREAM_MODE_START_CONTINUOUS);
+    stream_cmd.num_samps = num_samps;
     stream_cmd.stream_now = true;
     stream_cmd.time_spec = uhd::time_spec_t();
     rx_stream->issue_stream_cmd(stream_cmd);
 
-    // very simple receive loop ... to be improved
+    char *buff = (char *) malloc(sizeof(samp_type) * num_samps);
+
+    size_t actually_received = 0;
     uhd::rx_metadata_t md;
-    std::vector<samp_type> buff(args["bufsize"].as<int>());
-    size_t nrx(0);
-    bool finished = false;
-    while(!finished){
-        size_t num_rx_samps = rx_stream->recv(&buff.front(), buff.size(), md, 3.0, enable_size_map);
-        if (md.error_code == uhd::rx_metadata_t::ERROR_CODE_OVERFLOW){
-            fclose(fd);
-            goto start_rec;
+    while (actually_received < num_samps) {
+        size_t num_rx_samps = rx_stream->recv(&buff[actually_received * sizeof(samp_type)],
+                                              num_samps - actually_received, md, 3.0);
+        if (md.error_code != uhd::rx_metadata_t::ERROR_CODE_NONE) {
+            uhd::stream_cmd_t rx_stop_cmd(uhd::stream_cmd_t::STREAM_MODE_STOP_CONTINUOUS);
+            rx_stop_cmd.stream_now = false;
+            rx_stream->issue_stream_cmd(rx_stop_cmd);
+            size_t zero_count = 0;
+            do {
+                num_rx_samps = rx_stream->recv(&buff[0], num_samps, md, 0.1);
+                std::cout << "FLUSHING SAMPLE BUFFER NumSamps: " << num_rx_samps << std::endl;
+                if (num_rx_samps == 0) {
+                    zero_count++;
+                }
+
+            } while (!md.end_of_burst && zero_count < 4);
+
+            std::cout << "RETRYING CAPTURE" << std::endl;
+            actually_received = 0;
+            rx_stream->issue_stream_cmd(stream_cmd);
+            continue;
+        } else {
+            actually_received += num_rx_samps;
+            std::cout << "NumRX: " << num_rx_samps << " ActRec: " << actually_received << std::endl;
         }
-        size_t nsamp_use = (nsamp==0)?num_rx_samps:std::min(nsamp-nrx, num_rx_samps);
-        nrx += nsamp_use;
-        fwrite(&buff[0], sizeof(samp_type), nsamp_use, fd);
-        if(nsamp == nrx){ finished = true; }
-//        std::cout << "nsamp: " << nsamp << " nrx: " << nrx << " this rx: " << num_rx_samps << "\n";
     }
-    fclose(fd);
 
-    // write out meta
-    std::ofstream metafile;
-    metafile.open(fname_meta);
-    metafile << json(meta).dump(2) << "\n";
-    metafile.close();
-
-    // ...
-    std::cout << "finished. " << nrx << " samples written: " << fname_meta <<  "\n";
-    return EXIT_SUCCESS;
+    std::cout << "Sample type is " << typeid(samp_type).name() << std::endl;
+    std::ofstream fd(fname_data.c_str(), std::ios::out | std::ios::binary);
+    fd.write(buff, sizeof(samp_type) * num_samps);
+    fd.close();
+    free(buff);
 }
