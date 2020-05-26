@@ -1,0 +1,235 @@
+[
+    {
+        "datatype": "ci16_le",
+        "freq": 520,
+        "gain": 50,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 525,
+        "gain": 55,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 530,
+        "gain": 60,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 535,
+        "gain": 55,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 540,
+        "gain": 60,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 545,
+        "gain": 60,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 550,
+        "gain": 55,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 555,
+        "gain": 70,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 560,
+        "gain": 70,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 565,
+        "gain": 65,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 570,
+        "gain": 50,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 575,
+        "gain": 70,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 580,
+        "gain": 55,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 585,
+        "gain": 60,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 590,
+        "gain": 70,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 595,
+        "gain": 65,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 600,
+        "gain": 70,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+
+    {
+        "datatype": "ci16_le",
+        "freq": 605,
+        "gain": 60,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 610,
+        "gain": 65,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 615,
+        "gain": 50,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 620,
+        "gain": 70,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 625,
+        "gain": 65,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 630,
+        "gain": 50,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 635,
+        "gain": 60,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 640,
+        "gain": 65,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 645,
+        "gain": 70,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 733,
+        "gain": 50,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 735,
+        "gain": 45,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 737,
+        "gain": 60,
+        "name": "na-771r with 720MHZ lpf",
+        "rate": 40,
+        "samples": 100000000
+    }
+]

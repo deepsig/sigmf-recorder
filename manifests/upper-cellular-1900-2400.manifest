@@ -1,0 +1,842 @@
+[
+    {
+        "datatype": "ci16_le",
+        "freq": 1945,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1945,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1945,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1945,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1955,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1955,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1955,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1955,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1965,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1965,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1965,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1965,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1975,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1975,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1975,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1975,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1985,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1985,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1985,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1985,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1995,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1995,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1995,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 1995,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2005,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2005,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2005,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2005,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2015,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2015,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2015,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2015,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2025,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2025,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2025,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2025,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2035,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2035,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2035,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2035,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2045,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2045,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2045,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2045,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2065,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2065,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2065,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2075,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2075,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2075,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2085,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2085,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2085,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2095,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2095,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2095,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2105,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2120,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2120,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2120,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2120,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2130,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2130,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2130,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2130,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2140,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2140,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2140,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2140,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2150,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2150,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2150,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2150,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2160,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2160,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2160,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2160,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2170,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2170,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2170,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2170,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2170,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2180,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2180,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2180,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2190,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2190,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2190,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2190,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2200,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2200,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2200,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2200,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2210,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2210,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2210,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2210,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2220,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2220,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2220,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2220,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2230,
+        "gain": 15,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2230,
+        "gain": 30,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2230,
+        "gain": 45,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2230,
+        "gain": 60,
+        "name": "upper cellular bands (2GHZ) with VERT2450",
+        "rate": 40,
+        "samples": 100000000
+    }
+]

@@ -1,0 +1,18 @@
+[
+    {
+        "datatype": "ci16_le",
+        "freq": 500,
+        "gain": 45,
+        "name": "with DC-720 MHz amplifier",
+        "rate": 40,
+        "samples": 100000000.0
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 530,
+        "gain": 45,
+        "name": "with DC-720 MHz fliter",
+        "rate": 40,
+        "samples": 100000000.0
+    }
+]

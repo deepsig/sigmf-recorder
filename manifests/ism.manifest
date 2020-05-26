@@ -1,0 +1,386 @@
+[
+    {
+        "datatype": "ci16_le",
+        "freq": 2420,
+        "gain": 10,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2420,
+        "gain": 20,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2420,
+        "gain": 30,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2420,
+        "gain": 40,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2420,
+        "gain": 50,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2420,
+        "gain": 60,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2425,
+        "gain": 10,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2425,
+        "gain": 20,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2425,
+        "gain": 30,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2425,
+        "gain": 40,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2425,
+        "gain": 50,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2425,
+        "gain": 60,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2430,
+        "gain": 10,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2430,
+        "gain": 20,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2430,
+        "gain": 30,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2430,
+        "gain": 40,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2430,
+        "gain": 50,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2430,
+        "gain": 60,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2435,
+        "gain": 10,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2435,
+        "gain": 20,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2435,
+        "gain": 30,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2435,
+        "gain": 40,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2435,
+        "gain": 50,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2435,
+        "gain": 60,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2440,
+        "gain": 10,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2440,
+        "gain": 20,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2440,
+        "gain": 30,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2440,
+        "gain": 40,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2440,
+        "gain": 50,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2440,
+        "gain": 60,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2445,
+        "gain": 10,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2445,
+        "gain": 20,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2445,
+        "gain": 30,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2445,
+        "gain": 40,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2445,
+        "gain": 50,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2445,
+        "gain": 60,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2450,
+        "gain": 10,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2450,
+        "gain": 20,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2450,
+        "gain": 30,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2450,
+        "gain": 40,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2450,
+        "gain": 50,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2450,
+        "gain": 60,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2455,
+        "gain": 10,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2455,
+        "gain": 20,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2455,
+        "gain": 30,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2455,
+        "gain": 40,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2455,
+        "gain": 50,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2455,
+        "gain": 60,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    }
+]

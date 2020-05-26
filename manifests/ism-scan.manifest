@@ -1,0 +1,34 @@
+[
+    {
+        "datatype": "ci16_le",
+        "freq": 2420,
+        "gain": 50,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2430,
+        "gain": 50,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2440,
+        "gain": 50,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2450,
+        "gain": 50,
+        "name": "ism in trinidad at midnight",
+        "rate": 40,
+        "samples": 100000000
+    }
+]

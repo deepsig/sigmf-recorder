@@ -1,0 +1,290 @@
+[
+    {
+        "datatype": "ci16_le",
+        "freq": 2416,
+        "gain": 10,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2416,
+        "gain": 20,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2416,
+        "gain": 30,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2416,
+        "gain": 40,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2416,
+        "gain": 50,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2416,
+        "gain": 60,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2419,
+        "gain": 10,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2419,
+        "gain": 20,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2419,
+        "gain": 30,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2419,
+        "gain": 40,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2419,
+        "gain": 50,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2419,
+        "gain": 60,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2440,
+        "gain": 10,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2440,
+        "gain": 20,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2440,
+        "gain": 30,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2440,
+        "gain": 40,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2440,
+        "gain": 50,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2440,
+        "gain": 60,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2445,
+        "gain": 10,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2445,
+        "gain": 20,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2445,
+        "gain": 30,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2445,
+        "gain": 40,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2445,
+        "gain": 50,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2445,
+        "gain": 60,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2450,
+        "gain": 10,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2450,
+        "gain": 20,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2450,
+        "gain": 30,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2450,
+        "gain": 40,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2450,
+        "gain": 50,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2450,
+        "gain": 60,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2455,
+        "gain": 10,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2455,
+        "gain": 20,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2455,
+        "gain": 30,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2455,
+        "gain": 40,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2455,
+        "gain": 50,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 2455,
+        "gain": 60,
+        "name": "ism",
+        "rate": 40,
+        "samples": 100000000
+    }
+]

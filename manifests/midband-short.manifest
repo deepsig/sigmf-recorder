@@ -1,0 +1,362 @@
+[
+    {
+        "datatype": "ci16_le",
+        "freq": 840,
+        "gain": 20,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 840,
+        "gain": 35,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 840,
+        "gain": 50,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 847,
+        "gain": 20,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 847,
+        "gain": 35,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 847,
+        "gain": 50,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 853,
+        "gain": 20,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 853,
+        "gain": 35,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 853,
+        "gain": 50,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 859,
+        "gain": 20,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 859,
+        "gain": 35,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 859,
+        "gain": 50,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 859,
+        "gain": 20,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 863,
+        "gain": 35,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 863,
+        "gain": 50,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 867,
+        "gain": 25,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 867,
+        "gain": 35,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 867,
+        "gain": 50,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 871,
+        "gain": 30,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 871,
+        "gain": 40,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 871,
+        "gain": 50,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 873,
+        "gain": 30,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 873,
+        "gain": 40,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 873,
+        "gain": 50,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 877,
+        "gain": 30,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 877,
+        "gain": 40,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 877,
+        "gain": 50,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 883,
+        "gain": 30,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 883,
+        "gain": 40,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 883,
+        "gain": 50,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 887,
+        "gain": 30,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 887,
+        "gain": 40,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 887,
+        "gain": 50,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 893,
+        "gain": 20,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 893,
+        "gain": 45,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 893,
+        "gain": 60,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 896,
+        "gain": 20,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 896,
+        "gain": 45,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 896,
+        "gain": 60,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 902,
+        "gain": 20,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 902,
+        "gain": 45,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 902,
+        "gain": 60,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 913,
+        "gain": 20,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 913,
+        "gain": 45,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    },
+    {
+        "datatype": "ci16_le",
+        "freq": 913,
+        "gain": 60,
+        "name": "usrp b200 mini with vert 900",
+        "rate": 40,
+        "samples": 100000000
+    }
+]
