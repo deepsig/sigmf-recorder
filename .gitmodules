@@ -1,3 +1,3 @@
 [submodule "libsigmf"]
 	path = libsigmf
-	url = git@gitlab.com:deepsig/opensource/libsigmf.git
+	url = https://github.com/deepsig/libsigmf.git

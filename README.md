@@ -4,6 +4,17 @@
 a simple CLI tool for RF recording using [libsigmf](https://github.com/deepsig/libsigmf).
 provided under the Apache License 2.0 and the copyright notice can be found in LICENSE.
 
+## Compiling
+```
+git clone https://github.com/deepsig/sigmf-recorder.git
+cd sigmf-recorder
+git submodule update --init --recursive
+mkdir build
+cd build
+cmake ..
+make
+```
+
 ## Usage
 
 ```
